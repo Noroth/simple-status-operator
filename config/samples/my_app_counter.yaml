@@ -1,0 +1,8 @@
+apiVersion: app.noroth.io/v1beta1
+kind: Counter
+metadata:
+  name: my-stupid-counter
+spec:
+  minimumCount: 0
+  maximumCount: 20
+  counterDelay: 1

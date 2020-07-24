@@ -1,0 +1,94 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.5
+  creationTimestamp: null
+  name: counters.app.noroth.io
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.minimumCount
+    name: MinimumCount
+    type: integer
+  - JSONPath: .spec.maximumCount
+    name: MaximumCount
+    type: integer
+  - JSONPath: .status.current
+    name: Current
+    type: integer
+  - JSONPath: .status.description
+    name: Description
+    type: string
+  group: app.noroth.io
+  names:
+    kind: Counter
+    listKind: CounterList
+    plural: counters
+    singular: counter
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: Counter is the Schema for the counters API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: CounterSpec defines the desired state of Counter
+          properties:
+            counterDelay:
+              description: CounterDelay is the time between the counter increases
+                the count
+              format: int64
+              type: integer
+            maximumCount:
+              description: MaximumCount is the number where the counter ends counting
+                It must be bigger than the minimum count
+              type: integer
+            minimumCount:
+              description: MinimumCount is the number where the counter starts counting.
+                It must be smaller than the MaximumCount
+              type: integer
+          required:
+          - counterDelay
+          - maximumCount
+          - minimumCount
+          type: object
+        status:
+          description: CounterStatus defines the observed state of Counter
+          properties:
+            current:
+              description: Current shows the counted value
+              type: integer
+            description:
+              description: Description indicates, whether the counter is still running
+              type: string
+          required:
+          - current
+          - description
+          type: object
+      type: object
+  version: v1beta1
+  versions:
+  - name: v1beta1
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

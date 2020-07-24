@@ -1,0 +1,7 @@
+domain: noroth.io
+repo: github.com/noroth/simple-status-operator
+resources:
+- group: app
+  kind: Counter
+  version: v1beta1
+version: "2"

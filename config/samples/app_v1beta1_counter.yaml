@@ -1,0 +1,7 @@
+apiVersion: app.noroth.io/v1beta1
+kind: Counter
+metadata:
+  name: counter-sample
+spec:
+  # Add fields here
+  foo: bar

@@ -1,0 +1,24 @@
+# permissions for end users to edit counters.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: counter-editor-role
+rules:
+- apiGroups:
+  - app.noroth.io
+  resources:
+  - counters
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - app.noroth.io
+  resources:
+  - counters/status
+  verbs:
+  - get
